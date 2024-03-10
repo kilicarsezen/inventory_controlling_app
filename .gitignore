@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+.env.development
+.env.production
+.env.test
+
+# Flask file uploads
+/instance/
+
+# SQLAlchemy files
+*.db
+*.sqlite
+
+# Pytest
+.cache
+.pytest_cache/
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
