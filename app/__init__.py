@@ -1,6 +1,7 @@
 # /inventory_controlling_app/app/__init__.py
-
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate  # Import Flask-Migrate
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 import os
 
@@ -15,7 +16,7 @@ elif os.environ.get('FLASK_ENV') == 'testing':
 else:
     app.config.from_object(DevelopmentConfig())  # Default to development if unsure
 
-from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)  # Initialize Flask-Migrate
+# Rroute definitions and other app initializations go here
 
-# Your route definitions and other app initializations go here
