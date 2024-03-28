@@ -6,7 +6,10 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env.development'))  # Adjust the file name based on your environment
 
-from app import app
+from app import app  # Import the Flask app
+print("DATABASE_URI:", os.getenv('DATABASE_URI'))
+print("SQLAlchemy Database URI:", app.config['SQLALCHEMY_DATABASE_URI'])
+
 
 if __name__ == "__main__":
     app.run()

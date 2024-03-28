@@ -37,6 +37,7 @@ class Material(db.Model):
     subcategory = db.Column(db.String(50), nullable=True)
     material_type = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=True)
+    status = db.Column(db.Integer, nullable=False)
     systems = db.relationship('MaterialSystem', backref='material', lazy='dynamic')
     inventories = db.relationship('Inventory', backref='material', lazy='dynamic')
     material_prices = db.relationship('MaterialPrice', backref='material', lazy='dynamic')
@@ -44,14 +45,27 @@ class Material(db.Model):
     open_orders = db.relationship('OpenOrder', backref='material', lazy='dynamic')
     sales = db.relationship('Sale', backref='material', lazy='dynamic')
 
+class System(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    usage = db.Column(db.String(100), nullable=True)
+    status = db.Column(db.Integer, nullable=False)
+    # Additional system-specific fields can be added here
+
+    # Establish a relationship to MaterialSystem
+    material_systems = db.relationship('MaterialSystem', backref='system', lazy='dynamic')
+
 class MaterialSystem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     material_id = db.Column(db.Integer, db.ForeignKey('material.id'), nullable=False)
-    system_id = db.Column(db.Integer, db.ForeignKey('system.id'), nullable=False)
+    system_id = db.Column(db.Integer, db.ForeignKey('system.id'), nullable=False)  # Reference to System
     start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     end_date = db.Column(db.DateTime, nullable=True)
     date_id = db.Column(db.Integer, db.ForeignKey('date_table.id'))
-    date = db.relationship('DateTable', foreign_keys=[date_id], backref='material_systems')
+
+    # No need to duplicate system info here; it's linked via system_id
+
 
 class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
