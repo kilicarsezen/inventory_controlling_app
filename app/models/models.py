@@ -33,6 +33,7 @@ class Material(db.Model):
     inventory_code = db.Column(db.String(50), unique=True, nullable=False)
     sap_code = db.Column(db.String(50), unique=True, nullable=False)
     material_number = db.Column(db.String(50), unique=True, nullable=False)
+    jpdm_number = db.Column(db.String(50), unique=True, nullable=False)
     category = db.Column(db.String(50), nullable=False)
     subcategory = db.Column(db.String(50), nullable=True)
     material_type = db.Column(db.String(50), nullable=False)
@@ -59,12 +60,8 @@ class System(db.Model):
 class MaterialSystem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     material_id = db.Column(db.Integer, db.ForeignKey('material.id'), nullable=False)
-    system_id = db.Column(db.Integer, db.ForeignKey('system.id'), nullable=False)  # Reference to System
-    start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    end_date = db.Column(db.DateTime, nullable=True)
-    date_id = db.Column(db.Integer, db.ForeignKey('date_table.id'))
+    system_id = db.Column(db.Integer, db.ForeignKey('system.id'), nullable=False)
 
-    # No need to duplicate system info here; it's linked via system_id
 
 
 class Inventory(db.Model):
