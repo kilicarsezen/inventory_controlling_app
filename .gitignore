@@ -27,5 +27,5 @@ venv/
 *.swp
 
 # Initial data upload
-scripts/
-scripts
+.scripts/
+.scripts
