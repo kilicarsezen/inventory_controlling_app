@@ -29,5 +29,7 @@ venv/
 # Initial data upload
 /scripts/
 
+
+Dockerfile
 .scripts/
 .data_upload.py

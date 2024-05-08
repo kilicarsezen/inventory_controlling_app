@@ -1,3 +1,4 @@
+# /inventory_controlling_app/config.py
 import os
 
 class Config(object):

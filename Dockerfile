@@ -1,5 +1,8 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
+# Use an official Python 3.10 runtime as a parent image
+FROM python:3.10-slim
+
+# Install dependencies required for pyodbc
+RUN apt-get update && apt-get install -y unixodbc-dev g++ && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory to /app
 WORKDIR /app
@@ -8,7 +11,8 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
